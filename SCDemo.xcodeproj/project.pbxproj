@@ -15,6 +15,7 @@
 		95E3C78E1FD1026F00685CBD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E3C78D1FD1026F00685CBD /* main.m */; };
 		95E3C7981FD1026F00685CBD /* SCDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E3C7971FD1026F00685CBD /* SCDemoTests.m */; };
 		95E3C7A31FD1026F00685CBD /* SCDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E3C7A21FD1026F00685CBD /* SCDemoUITests.m */; };
+		95E3C7B31FD102A400685CBD /* SCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95E3C7B11FD102A400685CBD /* SCLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		95E3C79E1FD1026F00685CBD /* SCDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SCDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95E3C7A21FD1026F00685CBD /* SCDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCDemoUITests.m; sourceTree = "<group>"; };
 		95E3C7A41FD1026F00685CBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95E3C7B11FD102A400685CBD /* SCLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLabel.m; sourceTree = "<group>"; };
+		95E3C7B21FD102A400685CBD /* SCLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLabel.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 		95E3C77D1FD1026F00685CBD /* SCDemo */ = {
 			isa = PBXGroup;
 			children = (
+				95E3C7B01FD102A400685CBD /* SCKit */,
 				95E3C77E1FD1026F00685CBD /* AppDelegate.h */,
 				95E3C77F1FD1026F00685CBD /* AppDelegate.m */,
 				95E3C7811FD1026F00685CBD /* ViewController.h */,
@@ -130,6 +134,15 @@
 				95E3C7A41FD1026F00685CBD /* Info.plist */,
 			);
 			path = SCDemoUITests;
+			sourceTree = "<group>";
+		};
+		95E3C7B01FD102A400685CBD /* SCKit */ = {
+			isa = PBXGroup;
+			children = (
+				95E3C7B21FD102A400685CBD /* SCLabel.h */,
+				95E3C7B11FD102A400685CBD /* SCLabel.m */,
+			);
+			path = SCKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,6 +280,7 @@
 			files = (
 				95E3C7831FD1026F00685CBD /* ViewController.m in Sources */,
 				95E3C78E1FD1026F00685CBD /* main.m in Sources */,
+				95E3C7B31FD102A400685CBD /* SCLabel.m in Sources */,
 				95E3C7801FD1026F00685CBD /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +447,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9ZFP7YXP72;
 				INFOPLIST_FILE = SCDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HUST.SCDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -447,6 +462,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9ZFP7YXP72;
 				INFOPLIST_FILE = SCDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = HUST.SCDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
