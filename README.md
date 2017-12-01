@@ -1,0 +1,3 @@
+# SCDemo
+
+## For lazy people ##
