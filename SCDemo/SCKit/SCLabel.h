@@ -47,7 +47,8 @@ typedef void(^textChangeCallBack)(CGFloat newWidth, CGFloat newHeight, NSString 
 @property (nonatomic)UIRectCorner corner;
 @property (nonatomic)BOOL adjustsFitWidthToFontSize;//default is NO
 @property (nonatomic)BOOL notifyWhenSizeChanged;//default is YES
-@property (nonatomic)BOOL useMinmumSize;//default is No
+@property (nonatomic)BOOL useMinmumSize;//default is No，label will use minmum size when auto resize by text
+@property (nonatomic)BOOL enableLongPressGesture;
 
 @property (nonatomic)CGFloat top;
 @property (nonatomic)CGFloat bottom;

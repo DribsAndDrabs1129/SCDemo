@@ -8,6 +8,12 @@
 
 #import "SCLabel.h"
 
+@interface SCLabel(){
+    NSMutableDictionary *infoStorageDic;
+}
+
+@end;
+
 
 @implementation SCLabel
 
@@ -43,6 +49,8 @@
     _notifyWhenSizeChanged = YES;
     _useMinmumSize = NO;
     _edgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
+    infoStorageDic = [NSMutableDictionary new];
+    [infoStorageDic setObject:self forKey:@"text"];
 }
 
 - (void)layoutSubviews{
@@ -206,6 +214,25 @@
     [self setNeedsLayout];
 }
 
+- (void)setEnableLongPressGesture:(BOOL)enableLongPressGesture{
+    _enableLongPressGesture = enableLongPressGesture;
+    if (enableLongPressGesture) {
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPre:)];
+        [self addGestureRecognizer:longPress];
+        [infoStorageDic setObject:longPress forKey:@"SCLABEL_LONGPRESS_GESTURE"];
+    }
+    else{
+        NSArray *gestureArr = self.gestureRecognizers;
+        NSArray *allGestureStored = [infoStorageDic allValues];
+        for (UIGestureRecognizer *gesture in gestureArr) {
+            if ([allGestureStored containsObject:gesture]) {
+                [self removeGestureRecognizer:gesture];
+            }
+        }
+    }
+    self.userInteractionEnabled = enableLongPressGesture;
+}
+
 #pragma mark - getter
 
 - (CGFloat)top{
@@ -241,6 +268,51 @@
 }
 
 #pragma mark - private
+- (BOOL)canBecomeFirstResponder{
+    return _enableLongPressGesture;
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender{
+    if (action == @selector(copyAction) || action == @selector(cancelAction)) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)longPre:(UILongPressGestureRecognizer *)recognizer{
+    if ([UIMenuController sharedMenuController].menuVisible) {
+        return;
+    }
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+#ifdef DEBUG
+        NSLog(@"%@: longpress gesture begin",[self class]);
+#endif
+        [self becomeFirstResponder];
+        UIMenuItem *copyItem = [[UIMenuItem alloc] initWithTitle:@"Copy" action:@selector(copyAction)];
+        UIMenuItem *cancelItem = [[UIMenuItem alloc] initWithTitle:@"Cancel" action:@selector(cancelAction)];
+        
+        [UIMenuController sharedMenuController].menuItems = [NSArray arrayWithObjects:copyItem, cancelItem, nil];
+        [[UIMenuController sharedMenuController] setTargetRect:self.frame inView:self.superview];
+        [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+    }
+}
+
+- (void)copyAction{
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    if (self.text) {
+        pasteBoard.string = self.text;
+    }
+    else{
+        pasteBoard.string = self.attributedText.string;
+    }
+#ifdef DEBUG
+    NSLog(@"%@: copy label text to pasteBoard success",[self class]);
+#endif
+}
+
+- (void)cancelAction{
+    [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+}
 
 - (void)updateSize{
     CGSize targetSize = CGSizeZero;
@@ -266,7 +338,7 @@
                 size.height = targetSize.height;
             }
         }
-        self.frame = CGRectMake(originalRect.origin.x, originalRect.origin.x, size.width, size.height);
+        self.frame = CGRectMake(originalRect.origin.x, originalRect.origin.y, size.width, size.height);
         if (_notifyWhenSizeChanged) {
             CGFloat newWidth = size.width;
             CGFloat newHeight = size.height;
